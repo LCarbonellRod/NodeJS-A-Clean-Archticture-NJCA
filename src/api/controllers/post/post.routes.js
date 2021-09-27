@@ -15,6 +15,9 @@ router.route('/new')
 router.route('/load/:postId')
     .get(actions.getPost)
 
+router.route('/getResponse')
+    .get(actions.getResponse);
+
 
     
 

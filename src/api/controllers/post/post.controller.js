@@ -26,6 +26,10 @@ async function createPost(req , res , next) {
     }
 };
 
+async function getResponse(req , res , next) {
+    res.json({ title:"Luis", body: "carbonell"})
+};
+
 async function getPost(req, res, next){
 
 };
@@ -34,7 +38,8 @@ async function getPost(req, res, next){
 const actions = {
     createPost,
     paramsPostId,
-    getPost
+    getPost,
+    getResponse
 };
 
 export default actions;
