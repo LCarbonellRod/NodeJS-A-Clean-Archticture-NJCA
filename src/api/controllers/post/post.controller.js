@@ -1,4 +1,5 @@
-
+import {initTracer} from "../../../loaders/jaeger";
+import logger from "../../../loaders/logger";
 
 
 async function paramsPostId(req , res , next , postId){
@@ -28,6 +29,24 @@ async function createPost(req , res , next) {
 
 async function getResponse(req , res , next) {
     res.json({ title:"Luis", body: "carbonell"})
+    try {
+        console.log("begin")
+        logger.log("info" , "asd");
+        const tracer = initTracer("hello-world");
+        logger.log("info", "tracer")
+        var span = tracer.startSpan("formatString")
+        span.log({
+            event: "string-format",
+            value: "helloStr",
+        });
+        span.finish();
+        console.log("end")
+    }
+    catch (e)
+    {
+        console.log(e);
+    }
+
 };
 
 async function getPost(req, res, next){

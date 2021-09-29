@@ -1,6 +1,5 @@
 import expressLoader from './express';
 import logger from './logger';
-import mongo from './mongo';
 
 
 export default async ({ app })=> {
@@ -13,6 +12,7 @@ export default async ({ app })=> {
     /**
      * Laods express essentials 
     */
+
     await expressLoader({ app });
     logger.log("info" , "Express Loader has initalized successfully!");
 

@@ -6,8 +6,6 @@ require('dotenv').config({ path: path.join(__dirname, `../.env.${process.env.NOD
 
 import logger from './loaders/logger';
 
-
-
 async function startServer(){
     const app = express();
     const port = process.env.PORT || 8888;
