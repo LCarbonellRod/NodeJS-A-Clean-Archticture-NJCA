@@ -1,10 +1,12 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
-var chassis = require('@yp-chassis/chassisjs');
 var keycloakConfig = require('../../keycloak.json');
-var keycloak = chassis.keycloakSetUp.getKeycloak(keycloakConfig);
-var session = chassis.keycloakMiddlewares;
+
+import { keycloakSetUp, keycloakMiddlewares} from '@yp-chassis/chassisjs';
+
+var keycloak = keycloakSetUp.getKeycloak(keycloakConfig);
+var session = keycloakMiddlewares;
 
 
 
