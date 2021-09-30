@@ -1,5 +1,10 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import session from 'express-session'
+
+const memoryStore = require('./keycloak-config').getMemoryStore();
+const keycloak = require('./keycloak-config').initKeycloak();
+
 
 // API routes
 import * as routes from '../api';
@@ -9,10 +14,26 @@ import * as routes from '../api';
 
 export default ({ app })=> {
     var env = process.env.NODE_ENV;
+
     /**
      * Enable cors on all actions
      */
     app.use(cors());
+
+    // NOT FOR PRODUCTION
+    // Create a session-store to be used by both the express-session
+    // middleware and the keycloak middleware.
+
+    app.use(session({
+        secret: '9a1287ca-4a5a-4664-871b-2724e0ef33a1',
+        resave: false,
+        saveUninitialized: true,
+        store: memoryStore
+    }));
+
+    //Keycloak
+    app.use(keycloak.middleware());
+    console.log('Keycloak middleware Initialized')
 
     /**
      * Transform string to JSON.

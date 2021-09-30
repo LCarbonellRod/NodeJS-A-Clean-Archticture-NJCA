@@ -3,19 +3,23 @@ import initTracer from '@yp-chassis/chassisjs';
 import logger from "../../../loaders/logger";
 
 async function getResponse(req , res , next) {
-    res.json({ title:"Luis", body: "carbonell"})
+
     try {
-        console.log("begin")
-        logger.log("info" , "asd");
-        const tracer = initTracer("hello-world");
+        res.json({ title:"This is a test", body: "response test"})
+        logger.log("info", "begin")
+        const tracer = initTracer("jaeger-title-tracer");
         logger.log("info", "tracer")
-        var span = tracer.startSpan("formatString")
+        var span = tracer.startSpan("span-example")
         span.log({
             event: "string-format",
             value: "helloStr",
         });
+        span.log({
+            event: "date-of-send",
+            value: new Date().toISOString()
+        })
         span.finish();
-        console.log("end")
+        logger.log("info", "end")
     }
     catch (e)
     {
@@ -24,9 +28,20 @@ async function getResponse(req , res , next) {
 
 };
 
+async function anonymous(req , res , next){
+    res.json({ title: "Hello Anonymous"});
+};
 
-async function paramsPostId(req , res , next , postId){
-    console.log(postId)
+async function user(req , res , next){
+    res.json({ title:"Hello", body: "User"})
+};
+
+async function admin(req , res , next){
+    res.json("Hello Admin");
+};
+
+async function allUser(req , res , next){
+    res.json("Hello All User");
 };
 
 
@@ -59,9 +74,12 @@ async function getPost(req, res, next){
 
 const actions = {
     createPost,
-    paramsPostId,
     getPost,
-    getResponse
+    getResponse,
+    anonymous,
+    user,
+    admin,
+    allUser
 };
 
 export default actions;

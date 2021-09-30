@@ -1,0 +1,13 @@
+{
+  "realm": "yp",
+  "auth-server-url": "http://localhost/auth/",
+  "ssl-required": "external",
+  "resource": "nodejs-dummy-microservice",
+  "verify-token-audience": true,
+  "credentials": {
+    "secret": "9a1287ca-4a5a-4664-871b-2724e0ef33a1"
+  },
+  "use-resource-role-mappings": true,
+  "confidential-port": 0,
+  "policy-enforcer": {}
+}
