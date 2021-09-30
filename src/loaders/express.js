@@ -1,9 +1,11 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import session from 'express-session'
 
-const memoryStore = require('./keycloak-config').getMemoryStore();
-const keycloak = require('./keycloak-config').initKeycloak();
+var chassis = require('@yp-chassis/chassisjs');
+var keycloakConfig = require('../../keycloak.json');
+var keycloak = chassis.keycloakSetUp.getKeycloak(keycloakConfig);
+var session = chassis.keycloakMiddlewares;
+
 
 
 // API routes
@@ -24,12 +26,8 @@ export default ({ app })=> {
     // Create a session-store to be used by both the express-session
     // middleware and the keycloak middleware.
 
-    app.use(session({
-        secret: '9a1287ca-4a5a-4664-871b-2724e0ef33a1',
-        resave: false,
-        saveUninitialized: true,
-        store: memoryStore
-    }));
+    // Pass secret through env vars
+    app.use(session.getSessionMiddleware());
 
     //Keycloak
     app.use(keycloak.middleware());

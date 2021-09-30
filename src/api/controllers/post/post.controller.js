@@ -1,4 +1,5 @@
-import initTracer from '@yp-chassis/chassisjs';
+var chassis = require('@yp-chassis/chassisjs');
+var initTracer = chassis.InitTracer;
 
 import logger from "../../../loaders/logger";
 

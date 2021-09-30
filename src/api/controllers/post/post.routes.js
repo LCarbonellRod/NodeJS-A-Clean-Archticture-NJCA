@@ -1,7 +1,11 @@
 import { Router } from 'express';
 import actions from './post.controller';
-const keycloak = require('../../../loaders/keycloak-config').getKeycloak();
 
+import { keycloakSetUp } from '@yp-chassis/chassisjs';
+
+var keycloakConfig = require('../../../../keycloak.json');
+
+var keycloak = keycloakSetUp.getKeycloak(keycloakConfig);
 
 // Define router.. 
 var router = Router();
