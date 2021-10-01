@@ -1,5 +1,4 @@
-var chassis = require('@yp-chassis/chassisjs');
-var initTracer = chassis.InitTracer;
+import { InitTracer } from '@yp-chassis/chassisjs';
 
 import logger from "../../../loaders/logger";
 
@@ -8,7 +7,7 @@ async function getResponse(req , res , next) {
     try {
         res.json({ title:"This is a test", body: "response test"})
         logger.log("info", "begin")
-        const tracer = initTracer("jaeger-title-tracer");
+        const tracer = InitTracer("jaeger-title-tracer");
         logger.log("info", "tracer")
         var span = tracer.startSpan("span-example")
         span.log({

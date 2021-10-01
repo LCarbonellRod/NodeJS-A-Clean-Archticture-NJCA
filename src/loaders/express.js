@@ -1,20 +1,19 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
-var keycloakConfig = require('../../keycloak.json');
+import keycloakConfig from '../../keycloak.json';
+
+import sessionOptions from '../../sessionOptions.json';
 
 import { keycloakSetUp, keycloakMiddlewares} from '@yp-chassis/chassisjs';
 
-var keycloak = keycloakSetUp.getKeycloak(keycloakConfig);
-var session = keycloakMiddlewares;
+let keycloak = keycloakSetUp.getKeycloak(keycloakConfig);
+let session = keycloakMiddlewares;
 
-
+require('dotenv').config()
 
 // API routes
 import * as routes from '../api';
-
-
-// const app = express(); // for itelisense only.. 
 
 export default ({ app })=> {
     var env = process.env.NODE_ENV;
@@ -29,7 +28,7 @@ export default ({ app })=> {
     // middleware and the keycloak middleware.
 
     // Pass secret through env vars
-    app.use(session.getSessionMiddleware());
+    app.use(session.getSessionMiddleware(sessionOptions));
 
     //Keycloak
     app.use(keycloak.middleware());
